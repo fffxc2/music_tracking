@@ -1,0 +1,18 @@
+!!!
+%html
+  %head
+    %title MusicTracking
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    .main_content
+      .user-bar
+        - if current_user.nil?
+          %div= link_to 'Sign in', :new_user_session
+          %div= link_to 'Sign up', :new_user_registration
+        - if current_user
+          "Signed in as #{current_user.email}"
+      %p.notice= notice
+      %p.alert= alert
+      = yield

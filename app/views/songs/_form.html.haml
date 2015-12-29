@@ -1,4 +1,4 @@
-= form_for(@song) do |f|
+= simple_form_for(@song) do |f|
   - if @song.errors.any?
     #error_explanation
       %h2
@@ -16,18 +16,20 @@
     %br
     = f.text_field :bpm
   .field
-    = f.label :artists
-    %br
-    = f.text_field :artists, value: ''
+    = f.input :artist_names
   .actions
     = f.submit
 
-- data = @artists.map(&:name)
 :javascript
-  $(function() {
-    var availableArtists = #{ data }
-    debugger;
-    $( "#song_artists" ).autocomplete({
-      source: availableArtists
-    });
+  $("#song_artist_names").tagsInput({
+    autocomplete_url: '/api/artist?only_name=true',
+    defaultText: ''
   });
+-#  $(function() {
+-#    $.getJSON('/api/artist?only_name=true', function(data) {
+-#      console.log('loaded autocompletes');
+-#      $("#song_artists").autocomplete({
+-#         source: data
+-#      });
+-#    })
+-#  });

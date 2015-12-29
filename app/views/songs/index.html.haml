@@ -1,6 +1,7 @@
 .h2
   = link_to 'Add new song', :new_song
 - @songs.each do |s|
-  .br
-  = "Song Name: #{s.title}, BPM: #{s.bpm}"
+  .div
+    = "Song Name: #{s.title}, BPM: #{s.bpm}"
+    = link_to :edit, edit_song_path(id: s.id)
 

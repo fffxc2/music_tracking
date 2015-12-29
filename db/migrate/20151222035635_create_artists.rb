@@ -1,6 +1,6 @@
 class CreateArtists < ActiveRecord::Migration
   def change
-    create_table :artists do |t|
+    create_table :artists, primary_key: 'id' do |t|
       t.string :name
 
       t.timestamps null: false

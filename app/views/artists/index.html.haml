@@ -2,9 +2,5 @@
   = link_to 'Add new artist', :new_artist
 - @artists.each do |a|
   .p
-  = "Name: #{a.name}"
-  - a.songs.each do |s|
-    .br
-    = precede '-' do
-      = "Song name: #{s.title}"
+  = link_to "#{a.name}", artist_path(id: a.id), class: 'no-link-underline'
 

@@ -2,9 +2,5 @@
   = link_to 'Add new dance', :new_dance
 - @dances.each do |d|
   .p
-  = "Name: #{d.name}"
-  - d.songs.each do |s|
-    .br
-    = precede '-' do
-      = "Song name: #{s.title}"
+  = link_to "#{d.name}", dance_path(id: d.id), class: 'no-link-underline' 
 

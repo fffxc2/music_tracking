@@ -1,0 +1,8 @@
+.p
+  = link_to "Back to dance index", :dances
+%h2
+  = @dance.name
+.p
+  Songs:
+  - @dance.songs.each do |s|
+    .div= link_to "#{s.title}", song_path(id: s.id), class: 'no-link-underline'

@@ -7,11 +7,13 @@ class Song < ActiveRecord::Base
 
   validate :has_at_least_one_artist
   validate :unique_title_for_artist
+  validate :valid_youtube_link
 
   validates :author_id, presence: true, inclusion: { in: User.all.map(&:id) }
 
   attr_accessor :artist_names
   attr_accessor :dance_names
+  attr_accessor :video_id
  
   private
   def has_at_least_one_artist
@@ -28,5 +30,11 @@ class Song < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def valid_youtube_link
+    youtube_regex = /(?:https?\:\/\/)?(?:www\.)?(?:youtube.com|youtu.be)\/(?:watch\?v=|v\/)?(?<video_id>[A-z0-9]+)/ 
+    youtube_match = youtube_regex.match(link)
+    errors.add(:song, "requires the youtube link to be valid") if !link.nil? && youtube_match.nil?
   end
 end

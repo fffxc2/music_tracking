@@ -21,6 +21,10 @@ class DancesController < ApplicationController
     end
   end
 
+  def show
+    @dance = Dance.find(params[:id])
+  end
+
   def dance_params
     params.require(:dance).permit(:name)
   end

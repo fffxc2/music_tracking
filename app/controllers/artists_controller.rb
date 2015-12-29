@@ -2,7 +2,7 @@ class ArtistsController < ApplicationController
   before_action :authenticate_user!, :except => [:index]
 
   def index
-    @artists = Artist.all
+    @artists = Artist.all.order(name: :asc)
   end
 
   def new
@@ -19,6 +19,10 @@ class ArtistsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @artist = Artist.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

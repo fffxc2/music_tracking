@@ -1,0 +1,11 @@
+.p
+  = link_to "Back to song index", :songs
+%h2
+  = "#{@song.title} by #{@song.artists.map(&:name).join(', ')}" 
+.p
+  - if @song.dances.count > 0
+    = "Dances: #{@song.dances.map(&:name).join(', ')}"
+  .p
+    = link_to 'Edit this song', edit_song_path(id: @song.id)
+  = render 'shared/video'
+

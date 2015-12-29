@@ -10,11 +10,15 @@
   .field
     = f.label :title
     %br
-    = f.text_field :title
+    = f.text_field :title, class: 'text-field'
   .field
     = f.label :bpm
     %br
-    = f.text_field :bpm
+    = f.text_field :bpm, class: 'text-field'
+  .field
+    = f.label 'Youtube link'
+    %br
+    = f.text_field :link, class: 'text-field'
   .field
     = f.input :artist_names
   .field

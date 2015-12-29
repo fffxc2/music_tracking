@@ -1,0 +1,8 @@
+.p
+  = link_to "Back to artist index", :artists
+%h2
+  = @artist.name
+.p
+  Songs:
+  - @artist.songs.each do |s|
+    .div= link_to "#{s.title}", song_path(id: s.id), class: 'no-link-underline'

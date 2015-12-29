@@ -44,16 +44,23 @@ class SongsController < ApplicationController
       update_artist_ids_from_song_params
       update_dance_ids_from_song_params
 
-      redirect_to '/songs', notice: 'Song was updated'
+      redirect_to "/songs/#{@song.id}", notice: 'Song was updated'
     else
       render :edit
     end
   end
 
+  def show
+    @song = Song.find(params[:id])
+    youtube_regex = /(?:https?\:\/\/)?(?:www\.)?(?:youtube.com|youtu.be)\/(?:watch\?v=|v\/)?(?<video_id>[A-z0-9]+)/
+    youtube_match = youtube_regex.match(@song.link)
+    @song.video_id = youtube_match.nil? ? '' : youtube_match[:video_id]
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def song_params
     #Note: *_names is a comma seperated list
-    params.require(:song).permit(:title, :bpm, :artist_names, :dance_names)
+    params.require(:song).permit(:title, :bpm, :artist_names, :dance_names, :link)
   end
 
   def update_artist_ids_from_song_params

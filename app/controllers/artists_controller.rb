@@ -8,12 +8,16 @@ class ArtistsController < ApplicationController
   end
 
   def create
-    @artist = Artist.new(artist_params)
-
-    if @artist.save
-      redirect_to '/artists', notice: 'Artist was successfully added.' 
+    unless user_signed_in?
+      redirect_to '/artists', alert: 'Only logged in users can add songs'
     else
-      render :new
+      @artist = Artist.new(artist_params)
+
+      if @artist.save
+        redirect_to '/artists', notice: 'Artist was successfully added.' 
+      else
+        render :new
+      end
     end
   end
 

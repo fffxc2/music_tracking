@@ -1,4 +1,6 @@
 class SongsController < ApplicationController
+  before_action :artist_list, only: [:new]  
+
   def index
     @songs = Song.all
   end
@@ -9,7 +11,7 @@ class SongsController < ApplicationController
 
   def create
     unless user_signed_in?
-      redirect_to '/songs', alert: 'Only logged in user can add songs'
+      redirect_to '/songs', alert: 'Only logged in users can add songs'
     else 
       @song = Song.new(song_params)
 
@@ -25,5 +27,9 @@ class SongsController < ApplicationController
   def song_params
     #TODO: add artist support
     params.require(:song).permit(:title, :bpm)
+  end
+
+  def artist_list
+    @artists = Artist.all
   end
 end

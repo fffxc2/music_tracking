@@ -15,5 +15,19 @@
     = f.label :bpm
     %br
     = f.text_field :bpm
+  .field
+    = f.label :artists
+    %br
+    = f.text_field :artists, value: ''
   .actions
     = f.submit
+
+- data = @artists.map(&:name)
+:javascript
+  $(function() {
+    var availableArtists = #{ data }
+    debugger;
+    $( "#song_artists" ).autocomplete({
+      source: availableArtists
+    });
+  });

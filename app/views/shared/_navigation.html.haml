@@ -3,6 +3,8 @@
     = link_to 'Songs', :songs
   %div.nav-link
     = link_to 'Artists', :artists
+  %div.nav-link
+    = link_to 'Dances', :dances
   %div.user-status
     - if current_user.nil?
       %div= link_to 'Sign in', :new_user_session

@@ -1,0 +1,10 @@
+.h2
+  = link_to 'Add new dance', :new_dance
+- @dances.each do |d|
+  .p
+  = "Name: #{d.name}"
+  - d.songs.each do |s|
+    .br
+    = precede '-' do
+      = "Song name: #{s.title}"
+

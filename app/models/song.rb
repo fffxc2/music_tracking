@@ -2,10 +2,16 @@ class Song < ActiveRecord::Base
   has_many :artists_songs
   has_many :artists, through: :artists_songs
 
+  has_many :dances_songs
+  has_many :dances, through: :dances_songs
+
   validate :has_at_least_one_artist
   validate :unique_title_for_artist
 
-  attr_accessor(:artist_names)
+  validates :author_id, presence: true, inclusion: { in: User.all.map(&:id) }
+
+  attr_accessor :artist_names
+  attr_accessor :dance_names
  
   private
   def has_at_least_one_artist

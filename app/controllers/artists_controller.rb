@@ -1,4 +1,6 @@
 class ArtistsController < ApplicationController
+  before_action :authenticate_user!, :except => [:index]
+
   def index
     @artists = Artist.all
   end
@@ -8,16 +10,14 @@ class ArtistsController < ApplicationController
   end
 
   def create
-    unless user_signed_in?
-      redirect_to '/artists', alert: 'Only logged in users can add songs'
-    else
-      @artist = Artist.new(artist_params)
+    @artist = Artist.new(artist_params)
+    @artist.author_id = current_user.id
 
-      if @artist.save
-        redirect_to '/artists', notice: 'Artist was successfully added.' 
-      else
-        render :new
-      end
+    if @artist.valid?
+      @artist.save
+      redirect_to '/artists', notice: 'Artist was successfully added.' 
+    else
+      render :new
     end
   end
 

@@ -17,6 +17,8 @@
     = f.text_field :bpm
   .field
     = f.input :artist_names
+  .field
+    = f.input :dance_names
   .actions
     = f.submit
 
@@ -25,11 +27,7 @@
     autocomplete_url: '/api/artist?only_name=true',
     defaultText: ''
   });
--#  $(function() {
--#    $.getJSON('/api/artist?only_name=true', function(data) {
--#      console.log('loaded autocompletes');
--#      $("#song_artists").autocomplete({
--#         source: data
--#      });
--#    })
--#  });
+  $("#song_dance_names").tagsInput({
+    autocomplete_url: '/api/dance?only_name=true',
+    defaultText: ''
+  });

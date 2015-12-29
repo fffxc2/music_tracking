@@ -13,8 +13,17 @@ class SongsController < ApplicationController
 
   def create
     @song = Song.new(song_params)
+    
+    song_params['artist_names'].split(',').each do |name|
+      a = Artist.all.named(name)
+      errors.add(:artist, "name was ambiguous") if a.count > 1
+    end
 
-    if @song.save
+    if @song.valid?
+      @song.save
+      #now update the associations
+      update_artist_ids_from_song_params
+
       redirect_to '/songs', notice: 'Song was successfully added' 
     else
       render :new
@@ -32,22 +41,22 @@ class SongsController < ApplicationController
     #manually maping this back instead of update attributes to deal with maping artist names back and forth
     #I should probably try to pass a hash into the js, so it's value is the id's and it just displays the names
 
-    updated_artists = []
-    
     song_params['artist_names'].split(',').each do |name|
-      a = Artist.find_by(name: name)
-      updated_artists << a unless a.nil?
-    end    
+      a = Artist.all.named(name)
+      errors.add(:artist, "name was ambiguous") if a.count > 1
+    end 
    
-    @song.artists = updated_artists
-    raise
-    @song.update_attributes(song_params.except('artist_names'))
+    @song.assign_attributes(song_params)
 
-    #if @song.save
-    redirect_to '/songs', notice: 'Song was updated'
-    #else
-    #  render :edit
-    #end
+    if @song.valid?
+      @song.save
+      #now update the associations
+      update_artist_ids_from_song_params
+
+      redirect_to '/songs', notice: 'Song was updated'
+    else
+      render :edit
+    end
   end
   
   def logged_out_redirect
@@ -62,5 +71,20 @@ class SongsController < ApplicationController
 
   def artist_list
     @artists = Artist.all
+  end
+
+  def update_artist_ids_from_song_params
+    new_ids = []
+    song_params['artist_names'].split(',').each do |name|
+         a = Artist.find_by(name: name)
+         #if we don't have this artist yet, just make it now
+         if a.nil?
+           a = Artist.new(name: name)
+           a.save
+         end
+         # a should now ALWAYS contain an artist record
+         new_ids << a.id
+    end
+    @song.artist_ids = new_ids
   end
 end

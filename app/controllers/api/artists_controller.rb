@@ -3,7 +3,7 @@ module Api
     def index
       @artists = Artist.all
       if params['term']
-        @artists = @artists.where("lower(name) LIKE lower(?)", "%#{params['term']}%")
+        @artists = @artists.named(params['term'])
       end
       @artists = @artists.map(&:name) if params['only_name']
       respond_to do |format|

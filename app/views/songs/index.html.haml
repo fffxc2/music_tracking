@@ -2,6 +2,6 @@
   = link_to 'Add new song', :new_song
 - @songs.each do |s|
   .div
-    = "Song Name: #{s.title}, BPM: #{s.bpm}"
+    = "Song Name: #{s.title}, #{pluralize_without_count(s.artists.count, "Artist")}: #{s.artists.map(&:name).join(', ')}"
     = link_to :edit, edit_song_path(id: s.id)
 

@@ -11,13 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151229055315) do
+ActiveRecord::Schema.define(version: 20151229003304) do
 
   create_table "artists", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "artists", ["name"], name: "index_artists_on_name", unique: true
 
   create_table "artists_songs", id: false, force: :cascade do |t|
     t.integer "artist_id"

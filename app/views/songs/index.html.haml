@@ -1,0 +1,6 @@
+.h2
+  = link_to 'Add new song', :new_song
+- @songs.each do |s|
+  .br
+  = "Song Name: #{s.title}, BPM: #{s.bpm}"
+

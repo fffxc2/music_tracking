@@ -1,0 +1,10 @@
+.h2
+  = link_to 'Add new artist', :new_artist
+- @artists.each do |a|
+  .p
+  = "Name: #{a.name}"
+  - a.songs.each do |s|
+    .br
+    = precede '-' do
+      = "Song name: #{s.title}"
+

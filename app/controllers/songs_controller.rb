@@ -8,12 +8,16 @@ class SongsController < ApplicationController
   end
 
   def create
-    @song = Song.new(song_params)
+    unless user_signed_in?
+      redirect_to '/songs', alert: 'Only logged in user can add songs'
+    else 
+      @song = Song.new(song_params)
 
-    if @song.save
-      redirect_to '/songs', notice: 'Song was successfully added.' 
-    else
-      render :new
+      if @song.save
+        redirect_to '/songs', notice: 'Song was successfully added.' 
+      else
+        render :new
+      end
     end
   end
 

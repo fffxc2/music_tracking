@@ -1,0 +1,24 @@
+.navigation-bar {
+  background: #fffdf5;
+  width: 90%;
+  border: 1px black solid;
+  margin: auto;
+  display: block;
+  height: 50px;
+  padding: 20px; 
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.nav-link {
+  float: left;
+  font-size: 2em;
+  margin: 10px;
+}
+
+
+
+.user-status {
+  float: right;
+}

@@ -3,7 +3,7 @@ class SongsController < ApplicationController
   before_action :logged_out_redirect, only: [:new, :create, :edit, :update]
 
   def index
-    @songs = Song.all
+    @songs = Song.all.order(title: :asc)
   end
 
   def new

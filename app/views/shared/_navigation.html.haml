@@ -1,0 +1,12 @@
+.navigation-bar
+  %div.nav-link
+    = link_to 'Songs', :songs
+  %div.nav-link
+    = link_to 'Artists', :artists
+  %div.user-status
+    - if current_user.nil?
+      %div= link_to 'Sign in', :new_user_session
+      %div= link_to 'Sign up', :new_user_registration
+    - if current_user
+      %div= "Signed in as #{current_user.name}"
+      %div= link_to 'Sign out', :destroy_user_session, method: :delete

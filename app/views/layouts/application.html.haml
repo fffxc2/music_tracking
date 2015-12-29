@@ -12,7 +12,8 @@
           %div= link_to 'Sign in', :new_user_session
           %div= link_to 'Sign up', :new_user_registration
         - if current_user
-          "Signed in as #{current_user.email}"
+          %div= "Signed in as #{current_user.name}"
+          %div= link_to 'Sign out', :destroy_user_session, method: :delete
       %p.notice= notice
       %p.alert= alert
       = yield

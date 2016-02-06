@@ -2,8 +2,10 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.5'
 #TODO: switch over to postgres
-gem 'sqlite3'
+#gem 'sqlite3'
+gem 'pg'
 gem 'sass-rails', '~> 5.0'
+gem 'execjs'
 gem 'uglifier', '>= 1.3.0'
 gem 'haml'
 gem 'jquery-rails'
